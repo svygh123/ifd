@@ -23,7 +23,10 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+
+  // 设置tabs始终在底部显示(android默认在顶部显示)
+  $ionicConfigProvider.tabs.position('bottom');
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
