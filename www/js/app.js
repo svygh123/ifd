@@ -20,6 +20,12 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    //启动极光推送服务
+    window.plugins.jPushPlugin.init();
+    //调试模式
+    window.plugins.jPushPlugin.setDebugMode(true);
+
   });
 })
 
@@ -43,11 +49,11 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
 
   // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.equip', {
+    url: '/equip',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
+      'tab-equip': {
+        templateUrl: 'templates/tab-equip.html',
         controller: 'DashCtrl'
       }
     }
@@ -72,6 +78,16 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
       }
     })
 
+    .state('tab.message', {
+      url: '/message',
+      views: {
+        'tab-message': {
+          templateUrl: 'templates/tab-message.html',
+          controller: 'MessageCtrl'
+        }
+      }
+    })
+
   .state('tab.account', {
     url: '/account',
     views: {
@@ -83,6 +99,6 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/equip');
 
 });
