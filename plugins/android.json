@@ -1,0 +1,19 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cn.jpush.phonegap.JPushPlugin": {
+            "API_KEY": "40d1f4ae7d11491aa92c7d5a",
+            "PACKAGE_NAME": "com.ifd"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ifd"
+        }
+    },
+    "dependent_plugins": {}
+}
