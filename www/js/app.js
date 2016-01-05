@@ -5,9 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'ifd.services' is found in services.js
 // 'ifd.controllers' is found in controllers.js
-angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
+angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorageModule', 'ngStorage'])
+  // .constant('HOST', 'http://127.0.0.1:8080/')
+  .constant('HOST', 'http://221.226.119.246:8081/')
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, localStorageService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -22,9 +24,9 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
     }
 
     //启动极光推送服务
-    window.plugins.jPushPlugin.init();
+    //window.plugins.jPushPlugin.init();
     //调试模式
-    window.plugins.jPushPlugin.setDebugMode(true);
+    //window.plugins.jPushPlugin.setDebugMode(true);
 
   });
 })
@@ -40,12 +42,18 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
+   .state('login', {
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'LoginController'
+    })
+
+    // setup an abstract state for the tabs directive
     .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
+    })
 
   // Each tab has its own nav history stack:
 
@@ -99,6 +107,6 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/equip');
+  $urlRouterProvider.otherwise('/login');
 
 });

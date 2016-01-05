@@ -1,0 +1,15 @@
+<ion-view view-title="智能安全" name="login-view">
+    <ion-content class="padding">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-person assertive">&nbsp;</i>
+                <input type="text" placeholder="用户名" ng-model="data.username">
+            </label>
+            <label class="item item-input">
+                <i class="icon ion-locked assertive">&nbsp;</i>
+                <input type="password" placeholder="密码" ng-model="data.password">
+            </label>
+        </div>
+        <button class="button button-block button-assertive" ng-click="login(data)">登录</button>
+    </ion-content>
+</ion-view>
