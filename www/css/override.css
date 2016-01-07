@@ -1,0 +1,12 @@
+/* 覆盖fire-control.html的badge */
+.item .badge {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 26px;
+  right: 32px;
+}

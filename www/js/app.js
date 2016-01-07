@@ -5,9 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'ifd.services' is found in services.js
 // 'ifd.controllers' is found in controllers.js
-angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorageModule', 'ngStorage'])
+angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorageModule', 'ngStorage', 'ngResource', 'ngCordova'])
   // .constant('HOST', 'http://127.0.0.1:8080/')
-  .constant('HOST', 'http://221.226.119.246:8081/')
+  //.constant('HOST', 'http://221.226.119.246:8081/')
+  .constant('HOST', 'http://cocosamurai.f3322.net:81/ifd/')
 
 .run(function($ionicPlatform, localStorageService) {
   $ionicPlatform.ready(function() {
@@ -57,15 +58,37 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorage
 
   // Each tab has its own nav history stack:
 
+  ////////////////////////////////////////equip////////////////////////////////////////////////////////////////////
+
   .state('tab.equip', {
     url: '/equip',
     views: {
       'tab-equip': {
         templateUrl: 'templates/tab-equip.html',
-        controller: 'DashCtrl'
+        controller: 'EquipController'
       }
     }
   })
+  .state('tab.equip-map', {
+    url: '/equip/map',
+    views: {
+      'tab-equip': {
+        templateUrl: 'templates/equip/map.html',
+        controller: 'MapController'
+      }
+    }
+  })
+  .state('tab.equip-fire-control', {
+    url: '/equip/fire-control',
+    views: {
+      'tab-equip': {
+        templateUrl: 'templates/equip/fire-control.html',
+        controller: 'FireControlController'
+      }
+    }
+  })
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   .state('tab.chats', {
       url: '/chats',
@@ -86,6 +109,8 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorage
       }
     })
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     .state('tab.message', {
       url: '/message',
       views: {
@@ -95,6 +120,8 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorage
         }
       }
     })
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   .state('tab.account', {
     url: '/account',
