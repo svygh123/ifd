@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'ifd.services' is found in services.js
 // 'ifd.controllers' is found in controllers.js
-angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorageModule', 'ngStorage', 'ngResource', 'ngCordova'])
+angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directives', 'LocalStorageModule', 'ngStorage', 'ngResource', 'ngCordova'])
   // .constant('HOST', 'http://127.0.0.1:8080/')
   //.constant('HOST', 'http://221.226.119.246:8081/')
   .constant('HOST', 'http://cocosamurai.f3322.net:81/ifd/')
@@ -69,7 +69,7 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorage
       }
     }
   })
-  .state('tab.equip-map', {
+  .state('tab.map', {
     url: '/equip/map',
     views: {
       'tab-equip': {
@@ -78,15 +78,24 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'LocalStorage
       }
     }
   })
-  .state('tab.equip-fire-control', {
-    url: '/equip/fire-control',
-    views: {
-      'tab-equip': {
-        templateUrl: 'templates/equip/fire-control.html',
-        controller: 'FireControlController'
+  .state('tab.fire-control', {
+      url: '/equip/fire-control',
+      views: {
+        'tab-equip': {
+          templateUrl: 'templates/equip/fire-control.html',
+          controller: 'FireControlController'
+        }
       }
-    }
-  })
+    })
+    .state('tab.fire-control-list', {
+      url: '/equip/fire-control/fire-control-list',
+      views: {
+        'tab-equip': {
+          templateUrl: 'templates/equip/fire-control/fire-control-list.html',
+          controller: 'FireControlController'
+        }
+      }
+    })
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

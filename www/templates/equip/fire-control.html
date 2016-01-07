@@ -6,7 +6,7 @@
 
     <ion-list>
 
-      <ion-item class="item item-icon-left item-icon-right" ng-repeat="equip in config.equips" type="item-text-wrap" href="#">
+      <ion-item class="item item-icon-left item-icon-right" ng-repeat="equip in config.equips" type="item-text-wrap" ui-sref="tab.fire-control-list">
         <i class="icon ion-monitor positive"></i>
         {{equip.equipName?equip.equipName:'未命名'}}
         <h2>{{equip.equipCode?equip.equipCode:'未编号'}}</h2>
