@@ -1,21 +1,15 @@
 <ion-view view-title="设备">
 
+  <ion-nav-bar class="bar-assertive bar bar-header">
+    <ion-nav-buttons side="right">
+      <button class="button bar-assertive" style="font-size: 16px" ui-sref="tab.fire-control">
+        列表
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+`
   <ion-content>
-    <ion-list>
-
-      <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap" ui-sref="tab.map">
-        <i class="icon ion-ios-navigate assertive"></i>
-        设备地图
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
-
-      <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap" ui-sref="tab.fire-control">
-        <i class="icon ion-fireball assertive"></i>
-        消防设备
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
-
-    </ion-list>
+    <div id="allmap" style="width: 100%;height: 100%;"></div>
   </ion-content>
 
 </ion-view>

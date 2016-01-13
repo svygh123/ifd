@@ -11,7 +11,22 @@
             "API_KEY": "40d1f4ae7d11491aa92c7d5a",
             "PACKAGE_NAME": "com.ifd"
         },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ifd"
+        },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ifd"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ifd"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ifd"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ifd"
+        },
+        "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ifd"
         }
     },

@@ -1,21 +1,22 @@
-<ion-view view-title="状态信息">
+<ion-view view-title="状态信息" hide-tabs>
 
   <ion-content>
+    <ion-refresher on-refresh="refresh()" pulling-text="下拉更新..." refreshing-text="加载中..." refreshing-icon="ion-load-c"></ion-refresher>
+
     <ion-list>
 
-      <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap" href="#/tab/equip/map">
-        <i class="icon ion-ios-navigate assertive"></i>
-        设备地图
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
-
-      <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap" href="#/tab/equip/fire-control">
-        <i class="icon ion-fireball assertive"></i>
-        消防设备
-        <i class="icon ion-chevron-right icon-accessory"></i>
+      <ion-item class="item-remove-animate"
+                ng-repeat="equipStateData in config.equipStateDatas" type="item-text-wrap">
+        <span ng-class="{balanced : equipStateData.faultCode==0, energized : equipStateData.faultCode==-1, assertive : equipStateData.faultCode!=0 && equipStateData.faultCode!=-1}">
+          {{equipStateData.faultMsg}}
+        </span>
+        <span class="badge">
+              {{equipStateData.createDatatime}}</span>
       </ion-item>
 
     </ion-list>
+
+    <ion-infinite-scroll on-infinite="infinite()" icon="ion-load-c" ng-if="config.infinite"></ion-infinite-scroll>
   </ion-content>
 
 </ion-view>

@@ -3,17 +3,45 @@
   <ion-content>
     <ion-list>
 
-      <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap" href="#/tab/equip/map">
-        <i class="icon ion-ios-navigate assertive"></i>
-        设备地图
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
+      <label class="item item-input">
+        <span class="input-label">设备名称：</span>
+        <input type="text" class="form-control" ng-model="equip.equipCode" disabled>
+      </label>
 
-      <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap" href="#/tab/equip/fire-control">
-        <i class="icon ion-fireball assertive"></i>
-        消防设备
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
+      <label class="item item-input">
+        <span class="input-label">设备编号：</span>
+        <input type="text" class="form-control" ng-model="equip.equipName" disabled>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">安装地点：</span>
+        <input type="text" class="form-control" ng-model="equip.address" disabled>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">运行情况：</span>
+        <input type="text" class="form-control" ng-model="equip.faultMsg" disabled>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">节点名称：</span>
+        <input type="text" class="form-control" ng-model="equip.nodeText" disabled>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">节点编号：</span>
+        <input type="text" class="form-control" ng-model="equip.destinationNum" disabled>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">主机名称：</span>
+        <input type="text" class="form-control" ng-model="equip.hostName" disabled>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">主机地址：</span>
+        <input type="text" class="form-control" ng-model="equip.hostAddress" disabled>
+      </label>
 
     </ion-list>
   </ion-content>

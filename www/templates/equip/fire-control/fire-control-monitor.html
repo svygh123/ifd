@@ -1,21 +1,33 @@
 <ion-view view-title="监控数据">
 
   <ion-content>
-    <ion-list>
 
-      <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap" href="#/tab/equip/map">
-        <i class="icon ion-ios-navigate assertive"></i>
-        设备地图
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
+    <div class="row">
+      <div class="col col-20 col-offset-10">管(1)：</div>
+      <div class="col">颗粒度% {{equip.fireValue1}}</div>
+      <div class="col">灵敏度 {{equip.gain1}}</div>
+    </div>
 
-      <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap" href="#/tab/equip/fire-control">
-        <i class="icon ion-fireball assertive"></i>
-        消防设备
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
+    <div class="row">
+      <div class="col col-20 col-offset-10">管(2)：</div>
+      <div class="col">颗粒度% {{equip.fireValue2}}</div>
+      <div class="col">灵敏度 {{equip.gain2}}</div>
+    </div>
 
-    </ion-list>
+    <div class="row">
+      <div class="col col-20 col-offset-10">管(3)：</div>
+      <div class="col">颗粒度% {{equip.fireValue3}}</div>
+      <div class="col">灵敏度 {{equip.gain3}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col col-20 col-offset-10">管(4)：</div>
+      <div class="col">颗粒度% {{equip.fireValue4}}</div>
+      <div class="col">灵敏度 {{equip.gain4}}</div>
+    </div>
+
+    </div>
+
   </ion-content>
 
 </ion-view>
