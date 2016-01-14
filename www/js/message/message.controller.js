@@ -18,7 +18,6 @@ function MessageController($scope, MessageService) {
     MessageService.query(
       {page: $scope.config.page, per_page: $scope.config.per_page},
       function(result, headers) {
-        debugger;
         $scope.config.messages  =  $scope.config.messages.concat(result);
         $scope.config.page = $scope.config.page + 1;
         $scope.config.infinite = $scope.config.page < headers('pages');

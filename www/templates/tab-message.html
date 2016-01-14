@@ -1,15 +1,25 @@
 <ion-view view-title="消息">
 
+  <ion-nav-bar class="bar-assertive bar bar-header">
+    <ion-nav-buttons side="right">
+      <button class="button bar-assertive" style="font-size: 16px" ui-sref="tab.fire-control">
+        发消息
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
   <ion-content>
 
     <ion-refresher on-refresh="refresh()" pulling-text="下拉更新..." refreshing-text="加载中..." refreshing-icon="ion-load-c"></ion-refresher>
 
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar"
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
                 ng-repeat="message in config.messages" type="item-text-wrap">
-        <img src="http://www.runoob.com/try/demo_source/venkman.jpg">
-        <h2>Venkman</h2>
-        <p>Back off, man. I'm a scientist.</p>
+        <img src="img/icon.png">
+        <h2>{{message.userId}}</h2>
+        <p>{{message.content}}</p>
+        <span class="badge">{{message.createTime}}</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
 
