@@ -107,27 +107,36 @@ function FireControlDetailController($scope, $stateParams, EquipService) {
 }
 
 // 监控数据
-function FireControlMonitorController($scope, $stateParams, EquipService) {
-  EquipService.getEquipMonitorDatas({id: $stateParams.id}, function(result) {
-    // debugger;
-    // result.EquipMonitorData
-    // result.EquipTemperature
-    // result.EquipAirflow
-    $scope.equip = result.EquipMonitorData;
-    /* destinationNum: 255
-    equip: null
-    fireValue1: 1
-    fireValue2: 0
-    fireValue3: 0
-    fireValue4: 0
-    gain1: 5
-    gain2: 0
-    gain3: 0
-    gain4: 0
-    id: 46932
-    monitorDatetime: "2016-01-13 15:11:10"
-    originatingNum: 1 */
+function FireControlMonitorController($scope, $stateParams, $timeout, EquipService) {
+  $scope.labels = ["管(1)", "管(2)", "管(3)", "管(4)"];
+  $scope.series = ['颗粒浓度(%)'];
+  var timer;
+
+  $scope.getEquipMonitorDatas = function() {
+    EquipService.getEquipMonitorDatas({id: $stateParams.id}, function(result) {
+      // debugger;
+      // result.EquipMonitorData : ifd// result.EquipTemperature  : 温度 // result.EquipAirflow : 空气
+      $scope.equip = result.EquipMonitorData;
+      $scope.data = [
+        [
+          $scope.equip.fireValue1,
+          $scope.equip.fireValue2,
+          $scope.equip.fireValue3,
+          $scope.equip.fireValue4
+        ]
+      ];
+    });
+    timer = $timeout(function () {
+      $scope.getEquipMonitorDatas();
+    }, 10000);
+  };
+
+  $scope.getEquipMonitorDatas();
+
+  $scope.$on('$destroy', function() {
+    $timeout.cancel(timer);
   });
+
 }
 
 // 状态信息

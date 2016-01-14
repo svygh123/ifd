@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'ifd.services' is found in services.js
 // 'ifd.controllers' is found in controllers.js
-angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directives', 'LocalStorageModule', 'ngStorage', 'ngResource', 'ngCordova'])
+angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directives', 'LocalStorageModule', 'ngStorage', 'ngResource', 'ngCordova', 'chart.js'])
   // .constant('HOST', 'http://127.0.0.1:8080/')
   //.constant('HOST', 'http://221.226.119.246:8081/')
   .constant('HOST', 'http://cocosamurai.f3322.net:81/ifd/')
@@ -184,14 +184,14 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directiv
     }
   })
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////message///////////////////////////////////////////////////////////////////////
 
     .state('tab.message', {
       url: '/message',
       views: {
         'tab-message': {
           templateUrl: 'templates/tab-message.html',
-          controller: 'MessageCtrl'
+          controller: 'MessageController'
         }
       }
     })

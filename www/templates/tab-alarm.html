@@ -9,7 +9,7 @@
                 ng-repeat="fileAlarm in config.fileAlarms" type="item-text-wrap">
         <div class="row">
           <div class="col col-50">管({{fileAlarm.pipeNo}})</div>
-          <div class="col col-50"></div>
+          <div class="col col-50 text-right assertive">{{fileAlarm.fireLevel}}</div>
         </div>
         <div class="row">
           <div class="col col-50">{{fileAlarm.createDatetime}}</div>

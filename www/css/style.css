@@ -2,3 +2,9 @@
 body {
   font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
+.scroll-content {
+  background-color: #f9f9f9;
+}
+.color-fff {
+  color: #fff;
+}
