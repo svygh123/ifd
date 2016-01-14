@@ -143,7 +143,7 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directiv
         }
       }
     })
-    .state('tab.fire-control-detail', { // ->>设备详细
+    .state('tab.fire-control-detail', { // ->> 设备详细
       url: '/equip/{id}',
       views: {
         'tab-equip': {
@@ -152,7 +152,7 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directiv
         }
       }
     })
-    .state('tab.fire-control-monitor', { // ->>监控数据
+    .state('tab.fire-control-monitor', { // ->> 监控数据
       url: '/equip/{id}',
       views: {
         'tab-equip': {
@@ -161,7 +161,7 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directiv
         }
       }
     })
-    .state('tab.fire-control-status', { // ->>状态数据
+    .state('tab.fire-control-status', { // ->> 状态数据
       url: '/equip/{id}',
       views: {
         'tab-equip': {
@@ -171,26 +171,18 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directiv
       }
     })
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////alarm////////////////////////////////////////////////////////////////////////
 
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
+  // 预警
+  .state('tab.alarm', {
+    url: '/alarm',
+    views: {
+      'tab-alarm': {
+        templateUrl: 'templates/tab-alarm.html',
+        controller: 'AlarmController'
       }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+    }
+  })
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -1,0 +1,30 @@
+<ion-view view-title="报警">
+
+  <ion-content>
+
+    <ion-refresher on-refresh="refresh()" pulling-text="下拉更新..." refreshing-text="加载中..." refreshing-icon="ion-load-c"></ion-refresher>
+
+    <ion-list>
+      <ion-item class="item-remove-animate"
+                ng-repeat="fileAlarm in config.fileAlarms" type="item-text-wrap">
+        <div class="row">
+          <div class="col col-50">管({{fileAlarm.pipeNo}})</div>
+          <div class="col col-50"></div>
+        </div>
+        <div class="row">
+          <div class="col col-50">{{fileAlarm.createDatetime}}</div>
+          <div class="col col-50 text-right">颗粒浓度{{fileAlarm.fireValue}}%</div>
+        </div>
+        <div class="row">
+          <div class="col col-100">设备名称:{{fileAlarm.equip.equipName}}</div>
+        </div>
+        <div class="row">
+          <div class="col col-100">安装地点:{{fileAlarm.equip.address}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll on-infinite="infinite()" icon="ion-load-c" ng-if="config.infinite"></ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>
