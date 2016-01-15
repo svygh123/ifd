@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'ifd.services' is found in services.js
 // 'ifd.controllers' is found in controllers.js
-angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directives', 'LocalStorageModule', 'ngStorage', 'ngResource', 'ngCordova', 'chart.js'])
+angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStorage', 'ngResource', 'ngCordova', 'chart.js'])
   // .constant('HOST', 'http://127.0.0.1:8080/')
   //.constant('HOST', 'http://221.226.119.246:8081/')
   .constant('HOST', 'http://cocosamurai.f3322.net:81/ifd/')
@@ -126,50 +126,50 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directiv
 
   // 设备列表
   .state('tab.fire-control', {
-      url: '/equip/fire-control',
-      views: {
-        'tab-equip': {
-          templateUrl: 'templates/equip/fire-control.html',
-          controller: 'FireControlController'
-        }
+    url: '/equip/fire-control',
+    views: {
+      'tab-equip': {
+        templateUrl: 'templates/equip/fire-control.html',
+        controller: 'FireControlController'
       }
-    })
-    .state('tab.fire-control-list', { // 设备详细功能:设备详细, 监控数据, 状态信息
-      url: '/equip/{id}',
-      views: {
-        'tab-equip': {
-          templateUrl: 'templates/equip/fire-control/fire-control-list.html',
-          controller: 'FireControlListController'
-        }
+    }
+  })
+  .state('tab.fire-control-list', { // 设备详细功能:设备详细, 监控数据, 状态信息
+    url: '/equip/{id}',
+    views: {
+      'tab-equip': {
+        templateUrl: 'templates/equip/fire-control/fire-control-list.html',
+        controller: 'FireControlListController'
       }
-    })
-    .state('tab.fire-control-detail', { // ->> 设备详细
-      url: '/equip/{id}',
-      views: {
-        'tab-equip': {
-          templateUrl: 'templates/equip/fire-control/fire-control-detail.html',
-          controller: 'FireControlDetailController'
-        }
+    }
+  })
+  .state('tab.fire-control-detail', { // ->> 设备详细
+    url: '/equip/{id}',
+    views: {
+      'tab-equip': {
+        templateUrl: 'templates/equip/fire-control/fire-control-detail.html',
+        controller: 'FireControlDetailController'
       }
-    })
-    .state('tab.fire-control-monitor', { // ->> 监控数据
-      url: '/equip/{id}',
-      views: {
-        'tab-equip': {
-          templateUrl: 'templates/equip/fire-control/fire-control-monitor.html',
-          controller: 'FireControlMonitorController'
-        }
+    }
+  })
+  .state('tab.fire-control-monitor', { // ->> 监控数据
+    url: '/equip/{id}',
+    views: {
+      'tab-equip': {
+        templateUrl: 'templates/equip/fire-control/fire-control-monitor.html',
+        controller: 'FireControlMonitorController'
       }
-    })
-    .state('tab.fire-control-status', { // ->> 状态数据
-      url: '/equip/{id}',
-      views: {
-        'tab-equip': {
-          templateUrl: 'templates/equip/fire-control/fire-control-status.html',
-          controller: 'FireControlStatusController'
-        }
+    }
+  })
+  .state('tab.fire-control-status', { // ->> 状态数据
+    url: '/equip/{id}',
+    views: {
+      'tab-equip': {
+        templateUrl: 'templates/equip/fire-control/fire-control-status.html',
+        controller: 'FireControlStatusController'
       }
-    })
+    }
+  })
 
   ////////////////////////////////////alarm////////////////////////////////////////////////////////////////////////
 
@@ -184,26 +184,27 @@ angular.module('ifd', ['ionic', 'ifd.controllers', 'ifd.services', 'ifd.directiv
     }
   })
 
-    /////////////////////////////////////message///////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////message///////////////////////////////////////////////////////////////////////
 
-    .state('tab.message', {
-      url: '/message',
-      views: {
-        'tab-message': {
-          templateUrl: 'templates/tab-message.html',
-          controller: 'MessageController'
-        }
-      }
-    })
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.message', {
+    url: '/msg',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-message': {
+        templateUrl: 'templates/tab-message.html',
+        controller: 'MessageController'
+      }
+    }
+  })
+
+  /////////////////////////////////////me///////////////////////////////////////////////////////////////////////
+
+  // 我
+  .state('tab.me', {
+    url: '/me',
+    views: {
+      'tab-me': {
+        templateUrl: 'templates/tab-me.html',
+        controller: 'MeController'
       }
     }
   });

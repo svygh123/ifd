@@ -9,7 +9,7 @@ angular.module('ifd')
         .controller('FireControlStatusController', FireControlStatusController);   // 状态信息
 
 // 设备
-function EquipController($scope) {
+function EquipController($scope, $http, HOST, localStorageService) {
   $scope.cityName = "南京市";
   var myCity = new BMap.LocalCity();
   myCity.get(function(result) {
@@ -46,6 +46,22 @@ function EquipController($scope) {
   } else {
     alert("不能实现定位");
   }
+
+  $scope.accessToken = function() {
+    var token = localStorageService.get('token');
+    return token.access_token;
+  };
+
+  $scope.getUserName = function() {
+    return localStorageService.get("username");
+  };
+
+  $http.get(HOST + 'api/users/' + $scope.getUserName() + '?access_token=' + $scope.accessToken(),{})
+  .success(function(data) {
+    localStorageService.set("User", data );
+  }).error(function(data, status){
+    alert(status)
+  });
 }
 
 // 设备列表

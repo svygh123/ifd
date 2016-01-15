@@ -1,0 +1,15 @@
+<ion-view view-title="我">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate" ng-click="takePhoto()">
+        <center><img id="myImg" src="{{myImgsrc}}" class="avatar-item-image"></center>
+        <center><label>{{username}}</label></center>
+      </ion-item>
+      <ion-item class="item-divider"></ion-item>
+      <ion-item class="item-icon-left" ng-click="exitApp()">
+        <i class="icon ion-log-out assertive"></i>
+        退出登录
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -28,6 +28,9 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ifd"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.ifd"
         }
     },
     "dependent_plugins": {}
