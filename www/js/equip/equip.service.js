@@ -13,6 +13,7 @@ angular.module('ifd')
           return data;
         }
       },
+      'update': { method:'PUT' },
       'getEquipMonitorDatas': {
         method: 'GET',
         url: HOST + 'api/equipMonitorDatas/cache/:id'

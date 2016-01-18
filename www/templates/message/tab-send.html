@@ -1,0 +1,47 @@
+<style>
+  .list .item {
+    border: none;
+  }
+</style>
+<ion-view view-title="{{params.userName}}">
+
+  <ion-content class="has-footer" delegate-handle="mainScroll">
+
+    <div id="pushContent" class="list">
+
+      <div class="item item-avatar scroll-content">
+        <img src="img/adam.jpg">
+        <pre class="msg-left">
+          Wow, that worked XD I've implemented both my suggestion and @jimibi's tip in the following codpen:
+        </pre>
+      </div>
+
+      <div class="item item-avatar-right scroll-content">
+        <img src="img/ben.png">
+        <pre class="msg-right">
+          Is there a solution that doesn't need to hard code the ion-item height? An obvious reason is on mobile horizontal and portrait view, the height will be different.
+        </pre>
+      </div>
+
+    </div>
+
+    <!--<ion-list>
+      <ion-item class="item-remove-animate"
+                 ng-repeat="msg in config.messages" type="item-text-wrap">
+        <h2>{{msg.content}}</h2>
+      </ion-item>
+    </ion-list>-->
+
+  </ion-content>
+
+  <ion-footer-bar class="stable-bg item-input-inset">
+
+    <label class="item-input-wrapper">
+      <input type="search" id="content">
+    </label>
+    <button class="button button-clear" ng-click="send()">
+      发送
+    </button>
+
+  </ion-footer-bar>
+</ion-view>

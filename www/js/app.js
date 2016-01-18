@@ -6,7 +6,7 @@
 // 'ifd.services' is found in services.js
 // 'ifd.controllers' is found in controllers.js
 angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStorage', 'ngResource', 'ngCordova', 'chart.js'])
-  // .constant('HOST', 'http://127.0.0.1:8080/')
+  //.constant('HOST', 'http://127.0.0.1:8080/')
   //.constant('HOST', 'http://221.226.119.246:8081/')
   .constant('HOST', 'http://cocosamurai.f3322.net:81/ifd/')
 
@@ -23,15 +23,17 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
       StatusBar.styleDefault();
     }
 
+    $cordovaKeyboard.disableScroll(true);
+
     //双击退出
     $ionicPlatform.registerBackButtonAction(function (e) {
       //判断处于哪个页面时双击退出
       //对主页面进行拦截
 
       if ($location.path() == '/tab/equip'
-        || $location.path() == '/tab/chats'
-        || $location.path() == '/tab/message'
-        || $location.path() == '/tab/account'
+        || $location.path() == '/tab/alarm'
+        || $location.path() == '/tab/msg'
+        || $location.path() == '/tab/me'
         || $location.path() == '/login'   ) {
         if ($rootScope.backButtonPressedOnceToExit) {
           User.logout();
@@ -105,6 +107,7 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
     // setup an abstract state for the tabs directive
     .state('tab', {
       url: '/tab',
+      cache: true,
       abstract: true,
       templateUrl: 'templates/tabs.html'
     })
@@ -116,6 +119,7 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
   // 设备地图
   .state('tab.equip', {
     url: '/equip',
+    cache: true,
     views: {
       'tab-equip': {
         templateUrl: 'templates/tab-equip.html',
@@ -195,12 +199,35 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
       }
     }
   })
+  .state('tab.users', { // 发消息-选择对象
+    url: '/users',
+    views: {
+      'tab-message': {
+        templateUrl: 'templates/message/tab-users.html',
+        controller: 'UserListController'
+      }
+    }
+  })
+  .state('tab.send', { // 发消息-选择对象
+    url: '/send/{id}',
+    params: {
+      name: ':name',
+      login: ':login'
+    },
+    views: {
+      'tab-message': {
+        templateUrl: 'templates/message/tab-send.html',
+        controller: 'SendMsgController'
+      }
+    }
+  })
 
   /////////////////////////////////////me///////////////////////////////////////////////////////////////////////
 
   // 我
   .state('tab.me', {
     url: '/me',
+    cache: true,
     views: {
       'tab-me': {
         templateUrl: 'templates/tab-me.html',

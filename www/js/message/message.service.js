@@ -12,7 +12,17 @@ angular.module('ifd')
           data.createDate = DateUtils.convertLocaleDateFromServer(data.createDate);
           return data;
         }
-      }
+      },
+      'getUserList': {
+        method: 'GET',
+        url: HOST + 'api/users/user/:login',
+        isArray: true
+      },
+      'getMsgListByTarget': {
+        method: 'GET',
+        url: HOST + 'api/messages/user',
+        isArray: true
+      },
     });
   });
 

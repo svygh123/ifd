@@ -1,0 +1,19 @@
+<ion-view view-title="选择对象" hide-tabs>
+
+  <ion-content>
+
+    <ion-refresher on-refresh="refresh()" pulling-text="下拉更新..." refreshing-text="加载中..." refreshing-icon="ion-load-c"></ion-refresher>
+
+    <ion-list>
+      <ion-item class="item-remove-animate item-icon-right"
+                 ng-repeat="user in config.users" type="item-text-wrap"
+                 ui-sref="tab.send({id:user.id, name:user.firstName, login:user.login})">
+        <h2>{{user.firstName?user.firstName:user.login}}</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll on-infinite="infinite()" icon="ion-load-c" ng-if="config.infinite"></ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>
