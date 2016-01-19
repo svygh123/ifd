@@ -6,49 +6,18 @@ angular.module('ifd')
         .controller('SendMsgController', SendMsgController);   // 发消息
 
 // 消息
-function MessageController($scope, MessageService) {
-
+function MessageController($scope, RecentMessageService, User) {
   $scope.config = {
-    errormsg: false,
-    infinite: true,
-    per_page: 10,
-    page: 0,
-    messages: []
+    messages : []
   };
 
-  $scope.loadAll = function(callback) {
-    MessageService.query(
-      {page: $scope.config.page, per_page: $scope.config.per_page},
-      function(result, headers) {
-        $scope.config.messages  =  $scope.config.messages.concat(result);
-        $scope.config.page = $scope.config.page + 1;
-        $scope.config.infinite = $scope.config.page < headers('pages');
-        callback && callback();
-      },function(error) {
-        alert(error);
-      });
-  };
-
-  $scope.infinite = function() {
-    $scope.loadAll(function() {
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-    });
-  };
-
-  $scope.refresh = function() {
-    $scope.config = {
-      errormsg: false,
-      infinite: true,
-      per_page: 10,
-      page: 0,
-      messages: []
-    };
-
-    $scope.loadAll(function() {
-      $scope.$broadcast('scroll.resize');
-      $scope.$broadcast('scroll.refreshComplete');
-    });
-  };
+  RecentMessageService.getMsgListByUserId(
+    { id: User.user().login },
+  function(result, headers) {
+    $scope.config.messages  =  $scope.config.messages.concat(result);
+  },function(error) {
+    alert(error);
+  });
 
 }
 

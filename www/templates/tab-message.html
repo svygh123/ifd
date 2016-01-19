@@ -10,20 +10,18 @@
 
   <ion-content>
 
-    <ion-refresher on-refresh="refresh()" pulling-text="下拉更新..." refreshing-text="加载中..." refreshing-icon="ion-load-c"></ion-refresher>
-
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right"
                 ng-repeat="message in config.messages" type="item-text-wrap">
         <img src="img/icon.png">
-        <h2>{{message.userId}}</h2>
-        <p>{{message.content}}</p>
-        <span class="badge">{{message.createTime}}</span>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+        <!--<show-image url="message.targetId"
+                    style="top: 16px; left: 16px; max-width: 64px; max-height: 64px;"></show-image>-->
+        <h2>{{message.targetName}}</h2>
+        <p>{{message.message}}</p>
+        <span class="badge">{{message.time}}</span>
+        <span class="badge badge-assertive" style="top:36px;">{{message.newNum}}</span>
       </ion-item>
     </ion-list>
-
-    <ion-infinite-scroll on-infinite="infinite()" icon="ion-load-c" ng-if="config.infinite"></ion-infinite-scroll>
 
   </ion-content>
 </ion-view>
