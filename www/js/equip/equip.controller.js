@@ -9,43 +9,42 @@ angular.module('ifd')
         .controller('FireControlStatusController', FireControlStatusController);   // 状态信息
 
 // 设备
-function EquipController($scope, $http, HOST, localStorageService) {
-  $scope.cityName = "南京市";
-  var myCity = new BMap.LocalCity();
-  myCity.get(function(result) {
-    $scope.cityName = result.name;
-  });
+function EquipController($scope, $http, HOST, localStorageService, EquipService) {
+  var map = new BMap.Map("allmap"); // 创建Map实例
+  map.centerAndZoom(new BMap.Point(116.404, 39.915), 5);
+  map.enableScrollWheelZoom(true);   // 开启鼠标滚轮缩放
+  map.addControl(new BMap.NavigationControl()); // 添加默认缩放平移
 
-  $scope.map = new BMap.Map("allmap");    // 创建Map实例
-  $scope.map.centerAndZoom(new BMap.Point(118.7404, 32.036), 16);  // 初始化地图,设置中心点坐标和地图级别
-  //$scope.map.addControl(new BMap.MapTypeControl()); // 添加地图类型控件
-  $scope.map.setCurrentCity($scope.cityName);      // 设置地图显示的城市 此项是必须设置的
-  $scope.map.enableScrollWheelZoom(true);          // 开启鼠标滚轮缩放
-  $scope.map.addControl(new BMap.NavigationControl());
-  $scope.currentPoint={};
-
-  // 地图
-  var positionSucess = function(position) {
-    $scope.currentPoint.longitude = position.coords.longitude;
-    $scope.currentPoint.latitude = position.coords.latitude;
-    //alert("经度："+ position.coords.longitude + "  维度："+position.coords.latitude);
-    var pt = new BMap.Point(position.coords.longitude, position.coords.latitude);
-    var marker = new BMap.Marker(pt);
-    $scope.map.addOverlay(marker);
-    $scope.map.panTo(pt);
+  // 加载设备信息,并在地图上标出
+  $scope.config = {
+    errormsg: false,
+    infinite: true,
+    per_page: 100,
+    page: 0,
+    equips: []
   };
 
-  var errorPosition = function(error) {
-  };
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(positionSucess,errorPosition,{
-      enableHighAccuracy: false,
-      timeout: 60*1000,
-      maximumAge: 1000*60*10
+  EquipService.query(
+    {page: $scope.config.page, per_page: $scope.config.per_page},
+  function(result, headers) {
+    angular.forEach(result, function(item) {
+      if (item.longitude && item.latitude) {
+        var pt = new BMap.Point(item.longitude, item.latitude);
+        var marker = new BMap.Marker(pt);
+
+        var status = item.faultMsg?item.faultMsg:'故障';
+        var label = new BMap.Label('【'+ status + '】' + item.equipName + '<br>【地址】' + item.address, {offset: new BMap.Size(20, -10)});
+        marker.setLabel(label);
+
+        map.addOverlay(marker);
+        map.panTo(pt);
+      }
+      console.log('[' + item.longitude + ',' + item.latitude + ']' + item.equipName);
     });
-  } else {
-    alert("不能实现定位");
-  }
+  },function(error) {
+    alert(error);
+    console.log(error);
+  });
 
   $scope.accessToken = function() {
     var token = localStorageService.get('token');
@@ -58,10 +57,12 @@ function EquipController($scope, $http, HOST, localStorageService) {
 
   $http.get(HOST + 'api/users/' + $scope.getUserName() + '?access_token=' + $scope.accessToken(),{})
   .success(function(data) {
-    localStorageService.set("User", data );
+    localStorageService.set("User", data);
   }).error(function(data, status){
     alert(status)
   });
+
+
 }
 
 // 设备列表
@@ -78,10 +79,32 @@ function FireControlController($scope, EquipService) {
     EquipService.query(
     {page: $scope.config.page, per_page: $scope.config.per_page},
     function(result, headers) {
-      $scope.config.equips  =  $scope.config.equips.concat(result);
-      $scope.config.page = $scope.config.page + 1;
-      $scope.config.infinite = $scope.config.page < headers('pages');
-      callback && callback();
+      var map = new BMap.Map("container");
+      var geolocation = new BMap.Geolocation();
+      geolocation.getCurrentPosition(function(r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+          angular.forEach(result, function(item) {
+            if (item.longitude && item.latitude) {
+              var point2 = new BMap.Point(item.longitude,item.latitude);
+              var distance = parseInt(map.getDistance(r.point,point2));
+              if (distance < 1000) {
+                item.distance = parseInt(distance) + 'm';
+              } else {
+                distance = (distance/1000).toFixed(1);
+                item.distance = parseInt(distance) + 'km';
+              }
+            } else {
+              item.distance = '0m';
+            }
+          });
+          $scope.config.equips  =  $scope.config.equips.concat(result);
+          $scope.config.page = $scope.config.page + 1;
+          $scope.config.infinite = $scope.config.page < headers('pages');
+          callback && callback();
+        } else {
+          alert('failed' + this.getStatus());
+        }
+      },{enableHighAccuracy: true});
     },function(error) {
       alert(error);
     });
