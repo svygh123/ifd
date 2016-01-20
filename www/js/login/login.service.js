@@ -78,36 +78,41 @@ angular.module('ifd')
   .service('Helper',function(){
     this.isOnline = function(){
       return navigator && navigator.connection && navigator.connection.type!=Connection.NONE;
-    }
+    };
     this.myLogger = function(){
       for(var i=0;i<arguments.length;i++){console.log(JSON.stringify(arguments[i]));}
-    }
+    };
     this.getFileRoot = function(){
       if(ionic.Platform.isAndroid()){
         return cordova.file.externalApplicationStorageDirectory;
       }else if(ionic.Platform.isIOS() ||  ionic.Platform.isIPad()){
         return cordova.file.documentsDirectory;
       }
-    }
+    };
   })
   .service('User', function ($resource, $http, localStorageService,$state,
                              $cordovaFileTransfer,FileAccessory,HOST,Helper) {
     this.userName = function() {
       return localStorageService.get("username");
-    }
+    };
+
     this.token = function() {
       var token = localStorageService.get('token');
       return token.access_token;
-    }
+    };
+
     this.user = function(){
       return localStorageService.get("User" );
-    }
+    };
+
     this.userId = function(){
       return localStorageService.get("User").id;
-    }
+    };
+
     this.setAvatar = function(path,id){
       localStorageService.set("avatar_"+id,path);
-    }
+    };
+
     this.logout = function(){
       var exitapp = function(){
         if(ionic.Platform.isIOS()){
@@ -118,7 +123,7 @@ angular.module('ifd')
         }else{
           $state.go("login");
         }
-      }
+      };
       localStorageService.remove("token");
       localStorageService.remove("User");
       exitapp();
@@ -133,28 +138,30 @@ angular.module('ifd')
       //} else{
       //  exitapp();
       //}
-    }
-    this.getAvatar = function(id,callback){
-      var path =  localStorageService.get("avatar_"+id);
+    };
 
-      if(path == null){
+    this.getAvatar = function(id, callback) {
+      var path =  localStorageService.get("avatar_" + id);
+
+      if (path == null) {
 
         //得到下载地址
         var params = {
-          bussinessId :id,
-          bussinessType:'avatar',
-          access_token:localStorageService.get('token').access_token
+          bussinessId: id,
+          bussinessType: 'avatar',
+          access_token: localStorageService.get('token').access_token
         };
-        FileAccessory.getListByBussinssIdAndBussinessType(params,function(result) {
-          //console.log(result);
-          //var str = JSON.stringify(result);
-          //  alert(str);
-          if(result && result.length > 0){
+        FileAccessory.getListByBIdAndBType(params,function(result) {
+          // console.log(result);
+          // var str = JSON.stringify(result);
+          // alert(str);
+          //debugger;
+          if (result && result.length > 0) {
 
             var url = HOST+"api/fileAccessorys/file/" +result[0].id+ "?access_token="+params.access_token;
-            if(ionic.Platform.platform() =="win32"){
+            if (ionic.Platform.platform() == "win32") {
               callback && callback(url);
-            }else{
+            } else {
               var dir = Helper.getFileRoot()+result[0].name;
 
               $cordovaFileTransfer.download(url, dir, {}, true).then(
@@ -166,14 +173,17 @@ angular.module('ifd')
                   console.log(error)
                 });
             }
-          }else{
+          } else {
             callback && callback("img/ionic.png");
           }
+        },function(error){
+          console.log(error);
+          callback && callback("img/ionic.png");
         });
-      }else{
+      } else {
         callback && callback(path);
       }
-    }
+    };
 
   })
 
@@ -185,11 +195,11 @@ angular.module('ifd')
      */
     this.isLeapYear = function(date){
       return (0==date.getYear()%4&&((date.getYear()%100!=0)||(date.getYear()%400==0)));
-    }
+    };
 
     /**
      * 日期对象转换为指定格式的字符串
-     * @param f 日期格式,格式定义如下 yyyy-MM-dd HH:mm:ss
+     * @param formatStr 日期格式,格式定义如下 yyyy-MM-dd HH:mm:ss
      * @param date Date日期对象, 如果缺省，则为当前时间
      *
      * YYYY/yyyy/YY/yy 表示年份
@@ -224,8 +234,7 @@ angular.module('ifd')
       str=str.replace(/s|S/g,date.getSeconds());
 
       return str;
-    }
-
+    };
 
     /**
      * 日期计算
@@ -245,7 +254,7 @@ angular.module('ifd')
         case 'm' :return new Date(date.getFullYear(), (date.getMonth()) + num, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
         case 'y' :return new Date((date.getFullYear() + num), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
       }
-    }
+    };
 
     /**
      * 比较日期差 dtEnd 格式为日期型或者有效日期格式字符串
@@ -263,11 +272,11 @@ angular.module('ifd')
         case 'm' :return (dtEnd.getMonth()+1)+((dtEnd.getFullYear()-dtStart.getFullYear())*12) - (dtStart.getMonth()+1);
         case 'y' :return dtEnd.getFullYear() - dtStart.getFullYear();
       }
-    }
+    };
 
     /**
      * 字符串转换为日期对象
-     * @param date Date 格式为yyyy-MM-dd HH:mm:ss，必须按年月日时分秒的顺序，中间分隔符不限制
+     * @param dateStr Date 格式为yyyy-MM-dd HH:mm:ss，必须按年月日时分秒的顺序，中间分隔符不限制
      */
     this.strToDate = function(dateStr){
       var data = dateStr;
@@ -276,7 +285,7 @@ angular.module('ifd')
       t[1] = t[1] - 1;
       eval('var d = new Date('+t.join(',')+');');
       return d;
-    }
+    };
 
     /**
      * 把指定格式的字符串转换为日期对象yyyy-MM-dd HH:mm:ss
@@ -310,15 +319,14 @@ angular.module('ifd')
         second = dateStr.substr(start, 2);
       }
       return new Date(year, month, day, hour, minute, second);
-    }
-
+    };
 
     /**
      * 日期对象转换为毫秒数
      */
     this.dateToLong = function(date){
       return date.getTime();
-    }
+    };
 
     /**
      * 毫秒转换为日期对象
@@ -326,7 +334,7 @@ angular.module('ifd')
      */
     this.longToDate = function(dateVal){
       return new Date(dateVal);
-    }
+    };
 
     /**
      * 判断字符串是否为日期格式
@@ -362,34 +370,33 @@ angular.module('ifd')
         return false;
       }
       return true;
-    }
+    };
 
     this.getMaxDay = function(year,month) {
-      if(month==4||month==6||month==9||month==11)
+      if (month==4 || month==6 || month==9 || month==11)
         return "30";
-      if(month==2)
+      if (month==2)
         if(year%4==0&&year%100!=0 || year%400==0)
           return "29";
         else
           return "28";
       return "31";
-    }
+    };
+
     /**
      *   变量是否为数字
      */
-    this.isNumber = function(str)
-    {
+    this.isNumber = function(str) {
       var regExp = /^\d+$/g;
       return regExp.test(str);
-    }
+    };
 
     /**
      * 把日期分割成数组 [年、月、日、时、分、秒]
      */
-    this.toArray = function(myDate)
-    {
+    this.toArray = function(myDate) {
       myDate = arguments[0] || new Date();
-      var myArray = Array();
+      var myArray = new Array();
       myArray[0] = myDate.getFullYear();
       myArray[1] = myDate.getMonth();
       myArray[2] = myDate.getDate();
@@ -397,7 +404,7 @@ angular.module('ifd')
       myArray[4] = myDate.getMinutes();
       myArray[5] = myDate.getSeconds();
       return myArray;
-    }
+    };
 
     /**
      * 取得日期数据信息
@@ -421,7 +428,7 @@ angular.module('ifd')
         case 's' :partStr = myDate.getSeconds();break;
       }
       return partStr;
-    }
+    };
 
     /**
      * 取得当前日期所在月的最大天数
@@ -434,7 +441,7 @@ angular.module('ifd')
       var time = date.getTime() - 24 * 60 * 60 * 1000;
       var newDate = new Date(time);
       return newDate.getDate();
-    }
+    };
     this.convertLocaleDateToServer = function(date) {
       if (date) {
         var utcDate = new Date();
@@ -471,5 +478,30 @@ angular.module('ifd')
       var mm = time.getMinutes();
       var s = time.getSeconds();
       return y+'-'+this.add0(m)+'-'+this.add0(d)+' '+this.add0(h)+':'+this.add0(mm)+':'+this.add0(s);
+    };
+  })
+  .service('UploadFile', function ($resource, DateUtils,HOST,User,$ionicLoading) {
+    this.uploadImages = function(fileURL,params,success,error){
+      var options = new FileUploadOptions();
+      options.fileKey = "file";
+      options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+      options.mimeType = "image/jpeg";
+      options.chunkedMode = true;
+      options.httpMethod = "POST";
+      options.params = params;
+      var ft = new FileTransfer();
+      $ionicLoading.show({
+        template: '上传中...'
+      });
+      ft.upload(fileURL,HOST+"api/fileAccessorys/upload?access_token="+User.token(),function(data) {
+        // 设置图片新地址
+        $ionicLoading.hide();
+        success && success(data);
+      }, function(data) {
+        $ionicLoading.hide();
+        error && error(data);
+      }, options);
+
     }
-  });
+  })
+;
