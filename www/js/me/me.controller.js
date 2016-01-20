@@ -4,10 +4,10 @@ angular.module('ifd')
         .controller('MeController', MeController); // 我
 
 // 我
-function MeController($scope, $localStorage, $ionicPopup, $cordovaCamera, User) {
+function MeController($scope, $localStorage, $ionicPopup, $cordovaCamera, User, UploadFile) {
   $scope.myImgsrc = "img/icon.png";
   $scope.username = $localStorage.username;
-  var params = {bussinessId :User.user().id, bussinessType:'avatar', access_token:User.token()};
+  var params = {bussinessId: User.user().id, bussinessType: 'avatar', access_token: User.token()};
 
   User.getAvatar(User.user().id,function(path){
     $scope.myImgsrc = path;
