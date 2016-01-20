@@ -14,7 +14,7 @@ angular.module('ifd')
       }
     },
     'update': { method:'PUT' },
-    'getListByBussinssIdAndBussinessType': {
+    'getListByBIdAndBType': {
       method: 'GET',
       url: HOST + 'api/fileAccessorys/:bussinessId/:bussinessType',
       isArray: true
