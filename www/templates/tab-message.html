@@ -11,15 +11,16 @@
   <ion-content>
 
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right"
-                ng-repeat="message in config.messages" type="item-text-wrap">
-        <img src="img/icon.png">
-        <!--<show-image url="message.targetId"
-                    style="top: 16px; left: 16px; max-width: 64px; max-height: 64px;"></show-image>-->
+      <ion-item class="item-remove-animate item-avatar"
+                ng-repeat="message in config.messages" type="item-text-wrap"
+                ui-sref="tab.send({userId:message.userId, targetId:message.targetId, targetName:message.targetName})"
+                ng-click="message.newNum=0">
+        <!--<img src="img/icon.png">-->
+        <show-image url="message.targetId"></show-image>
         <h2>{{message.targetName}}</h2>
         <p>{{message.message}}</p>
-        <span class="badge">{{message.time}}</span>
-        <span class="badge badge-assertive" style="top:36px;">{{message.newNum}}</span>
+        <span class="badge" style="right:10px;">{{message.time}}</span>
+        <span class="badge badge-assertive" style="top:36px;right:10px;" ng-show="message.newNum>0">{{message.newNum}}</span>
       </ion-item>
     </ion-list>
 
