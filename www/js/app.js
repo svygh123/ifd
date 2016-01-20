@@ -23,8 +23,6 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
       StatusBar.styleDefault();
     }
 
-    $cordovaKeyboard.disableScroll(true);
-
     //双击退出
     $ionicPlatform.registerBackButtonAction(function (e) {
       //判断处于哪个页面时双击退出
@@ -190,6 +188,7 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
 
   /////////////////////////////////////message///////////////////////////////////////////////////////////////////////
 
+  //消息
   .state('tab.message', {
     url: '/msg',
     views: {
@@ -211,8 +210,9 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
   .state('tab.send', { // 发消息-选择对象
     url: '/send/{id}',
     params: {
-      name: ':name',
-      login: ':login'
+      userId: ':userId',
+      targetId: ':targetId',
+      targetName: ':targetName'
     },
     views: {
       'tab-message': {

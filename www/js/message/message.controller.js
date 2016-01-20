@@ -8,7 +8,8 @@ angular.module('ifd')
 // 消息
 function MessageController($scope, RecentMessageService, User) {
   $scope.config = {
-    messages : []
+    messages: [],
+    userId: User.user().login
   };
 
   RecentMessageService.getMsgListByUserId(
@@ -73,7 +74,7 @@ function UserListController($scope, MessageService, User) {
 // 发消息
 function SendMsgController($scope, $stateParams, User, MessageService, $ionicScrollDelegate, $cordovaKeyboard) {
   $scope.params = {
-    userName : $stateParams.name?$stateParams.name:$stateParams.login
+    userName : $stateParams.targetName?$stateParams.targetName:$stateParams.targetId
   };
   $scope.config = {
     messages : []
@@ -81,7 +82,7 @@ function SendMsgController($scope, $stateParams, User, MessageService, $ionicScr
 
   // 聊天记录
   MessageService.getMsgListByTarget(
-    { me: User.user().login, targetId: $stateParams.login },
+    { me: $stateParams.userId, targetId: $stateParams.targetId },
   function(result, headers) {
     $scope.config.messages  =  $scope.config.messages.concat(result);
   },function(error) {
@@ -97,7 +98,7 @@ function SendMsgController($scope, $stateParams, User, MessageService, $ionicScr
         id: '',
         content: content,
         userId: User.user().login,
-        targetId: $stateParams.login,
+        targetId: $stateParams.targetId,
         type: 'chat',
         createTime: new Date().valueOf()
       };
@@ -105,8 +106,7 @@ function SendMsgController($scope, $stateParams, User, MessageService, $ionicScr
       var msg = [
         '<div class="item item-avatar-right scroll-content">',
         '	<img src="img/ben.png">',
-        '	<pre class="msg-right">',
-          content,
+        '	<pre class="msg-right">',content,
         '	</pre>',
         '</div>'
       ].join("");

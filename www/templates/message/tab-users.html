@@ -7,7 +7,7 @@
     <ion-list>
       <ion-item class="item-remove-animate item-icon-right"
                  ng-repeat="user in config.users" type="item-text-wrap"
-                 ui-sref="tab.send({id:user.id, name:user.firstName, login:user.login})">
+                 ui-sref="tab.send({userId: config.login, targetId:user.login, targetName:user.firstName})">
         <h2>{{user.firstName?user.firstName:user.login}}</h2>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
