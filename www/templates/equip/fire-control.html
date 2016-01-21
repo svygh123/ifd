@@ -10,9 +10,9 @@
                 ui-sref="tab.fire-control-list({id:equip.id})">
         <h2>{{equip.equipName?equip.equipName:'未命名'}}</h2>
         <p>
-          [<span ng-class="{balanced : equip.faultCode==0, energized : equip.faultCode==-1, assertive : equip.faultCode!=0 && equip.faultCode!=-1}">
-            {{equip.faultMsg?equip.faultMsg:'故障'}}
-          </span>]
+          <span ng-class="{balanced : equip.faultCode==0, energized : equip.faultCode==-1, assertive : equip.faultCode!=0 && equip.faultCode!=-1}">
+            [{{equip.faultMsg?equip.faultMsg:'故障'}}]
+          </span>
           {{equip.equipCode?equip.equipCode:'未编号'}}</p>
         <span class="badge" style="top: 26px; right: 22px">
               {{equip.distance}}
