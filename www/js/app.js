@@ -154,6 +154,15 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
       }
     }
   })
+      .state('tab.fire-control-mark', { // ->> 设备详细 ->> 设备定位标注
+        url: '/equip/{id}',
+        views: {
+          'tab-equip': {
+            templateUrl: 'templates/equip/fire-control/fire-control-mark.html',
+            controller: 'FireControlMarkController'
+          }
+        }
+      })
   .state('tab.fire-control-monitor', { // ->> 监控数据
     url: '/equip/{id}',
     views: {
