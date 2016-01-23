@@ -1,0 +1,132 @@
+<ion-view view-title="详细信息" hide-tabs>
+
+  <ion-nav-bar class="bar bar-header">
+    <ion-nav-back-button class="button-clear button-dark" ng-click="$ionicGoBack()">
+      <i class="icon ion-android-arrow-back"></i>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear button-positive" ui-sref="tab.map-mark({id:id})">
+        地图标注
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <div class="button-bar"
+       style="position: absolute;top: 43px;right: 0;left: 0;height: 43px;z-index: 9999;">
+    <button
+      ng-repeat="button in buttons"
+      ng-class="{'active': activeButton == $index}"
+      ng-click="setActiveButton($index)"
+      class="button">
+      {{button.text}}
+    </button>
+  </div>
+
+  <ion-content style="margin-top: 41px;">
+    <div id="detail" style="width: 100%;height: 100%;">
+      <ion-list>
+
+        <ion-item class="item">
+          <span class="input-item mrg-right-10">设备名称</span>
+          <span class="show-text">{{equipDetail.equipName}}</span>
+        </ion-item>
+
+        <ion-item class="item">
+          <span class="input-item mrg-right-10">设备编号</span>
+          <span class="show-text">{{equipDetail.equipCode}}</span>
+        </ion-item>
+
+        <ion-item class="item">
+          <span class="input-item mrg-right-10">安装地点</span>
+          <span class="show-text">{{equipDetail.address}}</span>
+        </ion-item>
+
+        <ion-item class="item">
+          <span class="input-item mrg-right-10">运行情况</span>
+          <span class="show-text">{{equipDetail.faultMsg}}</span>
+        </ion-item>
+
+        <ion-item class="item">
+          <span class="input-item mrg-right-10">节点名称</span>
+          <span class="show-text">{{equipDetail.nodeText}}</span>
+        </ion-item>
+
+        <ion-item class="item">
+          <span class="input-item mrg-right-10">节点编号</span>
+          <span class="show-text">{{equipDetail.destinationNum}}</span>
+        </ion-item>
+
+        <ion-item class="item">
+          <span class="input-item mrg-right-10">主机名称</span>
+          <span class="show-text">{{equipDetail.hostName}}</span>
+        </ion-item>
+
+        <ion-item class="item">
+          <span class="input-item mrg-right-10">主机地址</span>
+          <span class="show-text">{{equipDetail.hostAddress}}</span>
+        </ion-item>
+
+      </ion-list>
+    </div>
+    <div id="monitor" style="width: 100%;height: 100%;">
+      <ion-list>
+        <ion-item class="item-divider text-center">实时数据</ion-item>
+        <ion-item>
+          <div class="row">
+            <div class="col col-20 col-offset-10">管(1)：</div>
+            <div class="col">颗粒浓度% {{equip.fireValue1}}</div>
+            <div class="col">灵敏度 {{equip.gain1}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col col-20 col-offset-10">管(2)：</div>
+            <div class="col"><span class="white">颗粒浓度%</span> {{equip.fireValue2}}</div>
+            <div class="col"><span class="white">灵敏度</span> {{equip.gain2}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col col-20 col-offset-10">管(3)：</div>
+            <div class="col"><span class="white">颗粒浓度%</span> {{equip.fireValue3}}</div>
+            <div class="col"><span class="white">灵敏度</span> {{equip.gain3}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col col-20 col-offset-10">管(4)：</div>
+            <div class="col"><span class="white">颗粒浓度%</span> {{equip.fireValue4}}</div>
+            <div class="col"><span class="white">灵敏度</span> {{equip.gain4}}</div>
+          </div>
+        </ion-item>
+        <ion-item class="item-divider text-center">柱状图</ion-item>
+        <ion-item>
+          <canvas id="bar"
+                  class="chart chart-bar"
+                  data="data"
+                  labels="labels"
+                  legend="true"
+                  series="series"
+                  options="{showTooltips: true}"></canvas>
+        </ion-item>
+      </ion-list>
+    </div>
+    <ion-scroll id="status" style="width: 100%;height: 100%;margin-top: 0px;">
+      <ion-refresher on-refresh="refresh()" pulling-text="下拉更新..." refreshing-text="加载中..." refreshing-icon="ion-load-c"></ion-refresher>
+
+      <ion-list>
+
+        <ion-item class="item-remove-animate"
+                  ng-repeat="equipStateData in config.equipStateDatas" type="item-text-wrap">
+        <span ng-class="{balanced : equipStateData.faultCode==0, energized : equipStateData.faultCode==-1, assertive : equipStateData.faultCode!=0 && equipStateData.faultCode!=-1}">
+          {{equipStateData.faultMsg}}
+        </span>
+        <span class="badge">
+              {{equipStateData.createDatatime}}</span>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-infinite-scroll on-infinite="infinite()" icon="ion-load-c" ng-if="config.infinite"></ion-infinite-scroll>
+    </ion-scroll>
+
+  </ion-content>
+
+</ion-view>
