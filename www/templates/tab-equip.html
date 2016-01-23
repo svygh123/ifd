@@ -1,15 +1,64 @@
-<ion-view view-title="设备">
+<style>
+  .button-bar > .button {
+    background-color: #fff;
+    color: #a6a6a6;
+  }
+  .button-bar > .button {
+    border-width: 0;
+  }
+  .button-bar > .button:hover {
+    color: #a6a6a6;
+    text-decoration: none; }
+  .button-bar > .button:active {
+    color: #a6a6a6;
+    text-decoration: none; }
+  .button-bar > .button.active, .button.activated {
+    background-color: #fff;
+    color: #ef473a;
+    border-bottom: 2px solid #ef473a;
+  }
+  .button-bar > .button:first-child {
+    border-radius: 0;
+  }
+  .button-bar > .button:last-child {
+    border-right-width: 0;
+    border-radius: 0;
+  }
+</style>
+<ion-view view-title="设备" hide-nav-bar="true" hide-back-button="true">
 
-  <ion-nav-bar class="bar-assertive bar bar-header">
-    <ion-nav-buttons side="right">
-      <button class="button bar-assertive" style="font-size: 16px" ui-sref="tab.fire-control">
-        列表
-      </button>
-    </ion-nav-buttons>
-  </ion-nav-bar>
-`
-  <ion-content>
+`<div class="button-bar"
+      style="position: absolute;top: 0;right: 0;left: 0;height: 43px;z-index: 9999;">
+  <button
+    ng-repeat="button in buttons"
+    ng-class="{'active': activeButton == $index}"
+    ng-click="setActiveButton($index)"
+    class="button icon ion-{{button.icon}}"
+  >
+    {{button.text}}
+  </button>
+</div>
+  <ion-content scroll="true" style="margin-top: 42px;">
+
     <div id="allmap" style="width: 100%;height: 100%;"></div>
+    <div id="eqList" style="width: 100%;height: 100%;display:none;">
+      <ion-list>
+
+        <ion-item class="item-remove-animate item-icon-right"
+                  ng-repeat="equip in config.equips" type="item-text-wrap"
+                  ui-sref="tab.equip-detail({id:equip.id})">
+          <h2>{{equip.equipName?equip.equipName:'未命名'}}</h2>
+          <p>
+          <span ng-class="{balanced : equip.faultCode==0, energized : equip.faultCode==-1, assertive : equip.faultCode!=0 && equip.faultCode!=-1}">
+            [{{equip.faultMsg?equip.faultMsg:'故障'}}]
+          </span>
+            {{equip.equipCode?equip.equipCode:'未编号'}}</p>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </ion-item>
+
+      </ion-list>
+    </div>
+
   </ion-content>
 
 </ion-view>

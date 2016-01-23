@@ -105,7 +105,6 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
     // setup an abstract state for the tabs directive
     .state('tab', {
       url: '/tab',
-      cache: true,
       abstract: true,
       templateUrl: 'templates/tabs.html'
     })
@@ -114,10 +113,9 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
 
   ////////////////////////////////////////equip////////////////////////////////////////////////////////////////////
 
-  // 设备地图
+  // 设备[地图, 列表]
   .state('tab.equip', {
     url: '/equip',
-    cache: true,
     views: {
       'tab-equip': {
         templateUrl: 'templates/tab-equip.html',
@@ -126,58 +124,22 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
     }
   })
 
-  // 设备列表
-  .state('tab.fire-control', {
-    url: '/equip/fire-control',
-    views: {
-      'tab-equip': {
-        templateUrl: 'templates/equip/fire-control.html',
-        controller: 'FireControlController'
-      }
-    }
-  })
-  .state('tab.fire-control-list', { // 设备详细功能:设备详细, 监控数据, 状态信息
+  .state('tab.equip-detail', { // 详细信息(设备详细, 监控数据, 状态信息)
     url: '/equip/{id}',
     views: {
       'tab-equip': {
-        templateUrl: 'templates/equip/fire-control/fire-control-list.html',
-        controller: 'FireControlListController'
+        templateUrl: 'templates/equip/equip-detail.html',
+        controller: 'EquipDetailController'
       }
     }
   })
-  .state('tab.fire-control-detail', { // ->> 设备详细
+
+  .state('tab.map-mark', { // ->> 详细信息 ->> 地图标注
     url: '/equip/{id}',
     views: {
       'tab-equip': {
-        templateUrl: 'templates/equip/fire-control/fire-control-detail.html',
-        controller: 'FireControlDetailController'
-      }
-    }
-  })
-      .state('tab.fire-control-mark', { // ->> 设备详细 ->> 设备定位标注
-        url: '/equip/{id}',
-        views: {
-          'tab-equip': {
-            templateUrl: 'templates/equip/fire-control/fire-control-mark.html',
-            controller: 'FireControlMarkController'
-          }
-        }
-      })
-  .state('tab.fire-control-monitor', { // ->> 监控数据
-    url: '/equip/{id}',
-    views: {
-      'tab-equip': {
-        templateUrl: 'templates/equip/fire-control/fire-control-monitor.html',
-        controller: 'FireControlMonitorController'
-      }
-    }
-  })
-  .state('tab.fire-control-status', { // ->> 状态数据
-    url: '/equip/{id}',
-    views: {
-      'tab-equip': {
-        templateUrl: 'templates/equip/fire-control/fire-control-status.html',
-        controller: 'FireControlStatusController'
+        templateUrl: 'templates/equip/map-mark.html',
+        controller: 'MapMarkController'
       }
     }
   })
@@ -236,7 +198,6 @@ angular.module('ifd', ['ionic', 'ifd.directives', 'LocalStorageModule', 'ngStora
   // 我
   .state('tab.me', {
     url: '/me',
-    cache: true,
     views: {
       'tab-me': {
         templateUrl: 'templates/tab-me.html',
