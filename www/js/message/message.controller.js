@@ -105,7 +105,7 @@ function SendMsgController($scope, $stateParams, User, MessageService, $ionicScr
 
       var msg = [
         '<div class="item item-avatar-right scroll-content">',
-        '	<img src="img/ben.png">',
+        '	<img src="img/ionic.png">',
         '	<pre class="msg-right">',content,
         '	</pre>',
         '</div>'
